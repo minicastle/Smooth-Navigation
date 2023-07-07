@@ -1,6 +1,6 @@
-import React, { useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import styled from "@emotion/styled";
-import TargetIcon from "./TargetIcon.jsx";
+import TargetIcon from "./TargetIcon";
 const Container = styled.nav<{ TextColor: string; BaseColor: string }>`
   display: flex;
   box-sizing: border-box;
@@ -14,6 +14,14 @@ const Container = styled.nav<{ TextColor: string; BaseColor: string }>`
   font-weight: bold;
   position: relative;
   overflow: hidden;
+  @media screen and (max-width: 1200px) {
+    font-size: 20px;
+    height: 60px;
+  }
+  @media screen and (max-width: 680px) {
+    justify-content: center;
+    height: 40px;
+  }
 `;
 const HeaderContainer = styled.header<{ MainColor: string }>`
   display: flex;
@@ -21,13 +29,30 @@ const HeaderContainer = styled.header<{ MainColor: string }>`
   align-items: center;
   margin-left: 50px;
   color: ${(props) => props.MainColor};
+  user-select: none;
+  cursor: pointer;
+  @media screen and (max-width: 765px) {
+    margin: 10px;
+  }
+  @media screen and (max-width: 680px) {
+    margin: 0px;
+  }
 `;
 const HeaderImage = styled.img`
   height: 100%;
   max-height: 80px;
+  @media screen and (max-width: 1200px) {
+    max-height: 50px;
+  }
+  @media screen and (max-width: 680px) {
+    max-height: 30px;
+  }
 `;
 const HeaderText = styled.span`
   margin-left: 7px;
+  @media screen and (max-width: 680px) {
+    margin-left: 2px;
+  }
 `;
 const NavList = styled.ul`
   list-style: none;
@@ -35,6 +60,12 @@ const NavList = styled.ul`
   justify-content: space-between;
   align-items: center;
   margin-right: 50px;
+  @media screen and (max-width: 765px) {
+    margin: 10px;
+  }
+  @media screen and (max-width: 680px) {
+    display: none;
+  }
 `;
 const NavItem = styled.li<{ MainColor: string }>`
   min-width: 150px;
@@ -50,6 +81,10 @@ const NavItem = styled.li<{ MainColor: string }>`
     color: ${(props) => props.MainColor};
   }
   word-break: keep-all;
+  @media screen and (max-width: 1200px) {
+    min-width: 100px;
+    max-width: 100px;
+  }
 `;
 const NavBottomBar = styled.div<{ MainColor: string }>`
   width: 100%;
@@ -58,27 +93,32 @@ const NavBottomBar = styled.div<{ MainColor: string }>`
   bottom: 0px;
   background-color: ${(props) => props.MainColor};
 `;
-const Spacer = styled.div``;
 /**
  * Smooth Motion Navigation Pilot Model
  * Develop : MiniCastle
  * Start Date : 2023-03-04
  * Update Date : 2023-03-04
  */
-function Base({
-  NavItems,
-  BaseColor,
-  MainColor,
-  TextColor,
-  HeaderIcon,
-  SiteName,
+function SmoothNav({
+  NavItems = [
+    { Text: "Home", Target: "/" },
+    { Text: "Show", Target: "/" },
+    { Text: "Member", Target: "/" },
+    { Text: "Contents", Target: "/" },
+    { Text: "About", Target: "/" },
+  ],
+  BaseColor = "#D6ECFA",
+  MainColor = "#F15C5C",
+  TextColor = "#aaaaaa",
+  HeaderIcon = "./node_modules/@minicastle/smooth-navigation/dist/Header Icon.png",
+  SiteName = "Title",
 }: {
-  NavItems: { Text: string; Target: string }[];
-  BaseColor: string;
-  MainColor: string;
-  TextColor: string;
-  HeaderIcon: string;
-  SiteName: string;
+  NavItems?: { Text: string; Target: string }[];
+  BaseColor?: string;
+  MainColor?: string;
+  TextColor?: string;
+  HeaderIcon?: string;
+  SiteName?: string;
 }) {
   const [ItemNumber, setItemNumber] = useState(0);
   const NavItemGen = useCallback(() => {
@@ -119,4 +159,4 @@ function Base({
   );
 }
 
-export default Base;
+export default SmoothNav;

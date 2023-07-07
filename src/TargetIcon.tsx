@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "@emotion/styled";
 
 const TargetSVG = styled.svg<{ position: number }>`
@@ -13,6 +12,18 @@ const TargetSVG = styled.svg<{ position: number }>`
         : (props.position - 1) * 150 + 115) + "px"
     );
   }};
+  @media screen and (max-width: 1200px) {
+    right: ${(props) => {
+      return (
+        (props.position === 1
+          ? props.position * 90
+          : (props.position - 1) * 100 + 90) + "px"
+      );
+    }};
+  }
+  @media screen and (max-width: 765px) {
+    display: none;
+  }
 `;
 
 function TargetIcon({ position }: { position: number }) {
